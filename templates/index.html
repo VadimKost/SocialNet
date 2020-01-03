@@ -1,0 +1,18 @@
+<!-- chat/templates/chat/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
+</head>
+<body>
+    What chat room would you like to enter?<br/>
+    {% for chat in chats %}
+        <a href={% url 'room'  chat.id  %}><div>
+        {{ chat.name }}
+        </div></a>
+    {% endfor %}
+
+</body>
+</html>
