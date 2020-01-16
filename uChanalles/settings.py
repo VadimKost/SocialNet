@@ -138,5 +138,5 @@ CHANNEL_LAYERS = {
 
 
 django_heroku.settings(locals())
-db_from_env = dj_database_url.config(conn_max_age=100,ssl_require=True)
+db_from_env = dj_database_url.config(conn_max_age=10,ssl_require=True)
 DATABASES['default'].update(db_from_env)
