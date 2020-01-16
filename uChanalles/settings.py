@@ -136,8 +136,7 @@ CHANNEL_LAYERS = {
     },
 }
 
-IS_CI = os.environ.get('IS_CI', False)
-if not IS_CI:
-    django_heroku.settings(locals())
-db_from_env = dj_database_url.config(conn_max_age=500)
+
+django_heroku.settings(locals())
+db_from_env = dj_database_url.config(conn_max_age=100,ssl_require=True)
 DATABASES['default'].update(db_from_env)

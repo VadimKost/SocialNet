@@ -12,5 +12,6 @@ import os
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "uChanalles.settings")
+os.environ['ASGI_THREADS']="3"
 django.setup()
 application = get_default_application()
