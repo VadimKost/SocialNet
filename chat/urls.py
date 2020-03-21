@@ -20,4 +20,5 @@ from  chat import views
 urlpatterns = [
     path('chat/',views.index,name='index'),
     path('chat/<str:room_id>/', views.room, name='room'),
+    path('login/', views.login,name='login')
 ]

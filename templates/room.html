@@ -76,19 +76,21 @@
         var data = JSON.parse(e.data);
         var message = data['message'];
         var author =data['author'];
-        var author_id=data['author_id']
-        if ({{ request.user.id }} == author_id){
+        var author_id=data['author_id'];
+        if ({{ request.user.id }} == author_id)
+        {
             text='<div class="col-md-6 text-left"> <div class="alert alert-success"> <h6>'+author+'</h6>'+message+' </div> </div> <div class="col-md-6"></div>'
 
-        }
-        if ({{ request.user.id }} != author_id ){
+        };
+        if ({{ request.user.id }} != author_id)
+        {
             text=' <div class="col-md-6"></div> <div class="col-md-6 text-right"> <div class="alert alert-info"> <h6>'+author+'</h6>'+ message+ '</div> '
 
 
-        }
-        var lol=document.querySelector('#lol')
+        };
+        var lol=document.querySelector('#lol');
         var elem = document.createElement("div");
-        elem.className='row'
+        elem.className='row';
         elem.innerHTML = text;
         var child = document.querySelector("#end");
         lol.insertBefore(elem, child);
