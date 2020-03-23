@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+
 # Create your models here.
 class User_M(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='User_p')
@@ -11,6 +13,12 @@ class User_M(models.Model):
     def __str__(self):
         return self.user.username
 
+    def get_user_name(self):
+        return self.user.username
+
+    def get_email(self):
+        return self.user.email
+
 
 class User_photo(models.Model):
     user = models.ForeignKey(User_M, on_delete=models.CASCADE)
@@ -20,14 +28,16 @@ class User_photo(models.Model):
     def __str__(self):
         return str(self.id)
 
-
 class Chat(models.Model):
-    name=models.CharField(max_length=80,default='test')
+    name = models.CharField(max_length=80, default='test')
     members = models.ManyToManyField(User)
+    def __str__(self):
+        return self.name
+
 
 
 class Message(models.Model):
-    chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE,related_name='messeges' )
     autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='A')
     message = models.TextField(max_length=256)
 

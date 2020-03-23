@@ -21,7 +21,11 @@ from rest_framework import routers
 from uChanalles.serializers import *
 
 router = routers.DefaultRouter()
-router.register(r'current_user', CurrentUserViewSet)
+router.register(r'user', CurrentUserViewSet)
+router.register(r'user_all_info',User_M_ViewSet)
+router.register(r'chat',ChatViewSet)
+router.register(r'message',MessagesViewSet)
+
 
 urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
