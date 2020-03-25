@@ -14,14 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
+from uChanalles import settings
 from uChanalles.serializers import *
 
 router = routers.DefaultRouter()
-router.register(r'user', CurrentUserViewSet)
+router.register(r'user', UserViewSet)
 router.register(r'user_all_info',User_M_ViewSet)
 router.register(r'chat',ChatViewSet)
 router.register(r'message',MessagesViewSet)
@@ -31,5 +33,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     path('',include('chat.urls')),
-    path('api/',include(router.urls))
+    path('api/',include(router.urls)),
+    path('api/currentuser/',CurrentUser.as_view())
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

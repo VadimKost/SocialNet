@@ -146,3 +146,5 @@ CHANNEL_LAYERS = {
 django_heroku.settings(locals())
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
+MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media")
+MEDIA_URL = '/media/'

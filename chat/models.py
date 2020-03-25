@@ -18,11 +18,12 @@ class User_M(models.Model):
 
     def get_email(self):
         return self.user.email
-
+    def img_url(self):
+        return self.img.photo.url
 
 class User_photo(models.Model):
-    user = models.ForeignKey(User_M, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='images/')
+    user = models.OneToOneField(User_M, on_delete=models.CASCADE,related_name='img')
+    photo = models.ImageField(upload_to='static/media/')
     data = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
