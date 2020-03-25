@@ -79,6 +79,6 @@ class CurrentUser(APIView):
         serializer_context = {
             'request': request,
         }
-        qs=User_M.objects.get(id=request.user.id)
+        qs=User_M.objects.get(user=request.user)
         serializer=User_M_Serializer(qs,context=serializer_context)
         return Response(serializer.data)
