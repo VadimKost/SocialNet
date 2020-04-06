@@ -22,18 +22,17 @@ from rest_framework import routers
 from uChanalles import settings
 from uChanalles.serializers import *
 
-router = routers.DefaultRouter()
-router.register(r'user', UserViewSet)
-router.register(r'user_all_info',User_M_ViewSet)
-router.register(r'chat',ChatViewSet)
-router.register(r'message',MessagesViewSet)
+api_urlpatterns=[
+    path('api/user/',UserView.as_view()),
+    path('api/user_detail_inf/',User_detail_View.as_view()),
+    path('api/currentuser/',CurrentUserView.as_view())
+]
 
 
 urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     path('',include('chat.urls')),
-    path('api/',include(router.urls)),
-    path('api/currentuser/',CurrentUser.as_view())
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns+=api_urlpatterns

@@ -18,6 +18,7 @@ class User_M(models.Model):
 
     def get_email(self):
         return self.user.email
+
     def img_url(self):
         return self.img.photo.url
 
