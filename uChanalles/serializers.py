@@ -1,12 +1,7 @@
 from django.contrib.auth.models import User
-from rest_framework import serializers, viewsets, permissions, status
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.decorators import authentication_classes, permission_classes
-from rest_framework.generics import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from chat.models import User_M, Chat, Message, User_photo
+from rest_framework import serializers
+from chat.models import User_M
+
 
 # class IsOwnerOrReadOnly(permissions.BasePermission):
 #     def has_object_permission(self, request, view, obj):
@@ -92,36 +87,18 @@ from chat.models import User_M, Chat, Message, User_photo
 #         return Response(serializer.data)
 
 class UserSerializer(serializers.ModelSerializer):
+    chats=serializers.PrimaryKeyRelatedField(many=True,read_only=True)
     class Meta:
-        model=User
-        fields = '__all__'
-
-class UserView(APIView):
-    def get(self,request):
-        qs=User.objects.all()
-        serializer=UserSerializer(qs,many=True)
-        return Response(serializer.data)
+        model = User
+        exclude = ['password', 'is_superuser', 'last_login', 'date_joined', 'is_staff', 'is_active']
 
 
 class User_detail_Serializer(serializers.ModelSerializer):
+    img=serializers.CharField(source='img_url')
+    user=UserSerializer()
     class Meta:
-        model=User_M
+        model = User_M
         fields = '__all__'
-        depth=1
+        depth = 1
 
 
-class User_detail_View(APIView):
-    def get(self,request):
-        qs=User_M.objects.all()
-        serializer=User_detail_Serializer(qs,many=True)
-        return Response(serializer.data)
-
-
-class CurrentUserView(APIView):
-    def get(self, request):
-        serializer_context = {
-            'request': request,
-        }
-        qs=User_M.objects.get(user=request.user)
-        serializer=User_detail_Serializer(qs,context=serializer_context)
-        return Response(serializer.data)

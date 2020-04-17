@@ -13,15 +13,11 @@ class User_M(models.Model):
     def __str__(self):
         return self.user.username
 
-    def get_user_name(self):
-        return self.user.username
-
-    def get_email(self):
-        return self.user.email
-
     def img_url(self):
         return self.img.photo.url
-
+    def get_user_chats(self):
+        print(self.user.chats.all())
+        return self.user.chats.all()
 class User_photo(models.Model):
     user = models.OneToOneField(User_M, on_delete=models.CASCADE,related_name='img')
     photo = models.ImageField(upload_to='static/media/')
@@ -32,7 +28,7 @@ class User_photo(models.Model):
 
 class Chat(models.Model):
     name = models.CharField(max_length=80, default='test')
-    members = models.ManyToManyField(User)
+    members = models.ManyToManyField(User,related_name='chats')
     def __str__(self):
         return self.name
 

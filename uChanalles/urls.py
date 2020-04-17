@@ -17,10 +17,9 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
 
 from uChanalles import settings
-from uChanalles.serializers import *
+from uChanalles.apiview import *
 
 api_urlpatterns=[
     path('api/user/',UserView.as_view()),

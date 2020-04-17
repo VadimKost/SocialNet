@@ -10,6 +10,7 @@ from chat.models import *
 
 @login_required
 def index(request):
+    print(request.user)
     chats=Chat.objects.filter(members__in=[request.user.id])
     return render(request,'index.html',locals())
 
