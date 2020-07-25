@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'chat',
     'channels',
     'rest_framework',
-    'storages'
+
 
 ]
 
@@ -142,8 +142,7 @@ CHANNEL_LAYERS = {
         },
     },
 }
-DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-DROPBOX_OAUTH2_TOKEN='JHU6DqLPRvAAAAAAAAAAHiIxcQSlyQhj9a8Mgcj5XEdsaB_vsXScgSdMzvilYMQ9'
+
 
 django_heroku.settings(locals())
 db_from_env = dj_database_url.config()
