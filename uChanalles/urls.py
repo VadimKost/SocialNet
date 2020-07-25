@@ -19,13 +19,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 from uChanalles import settings
-from uChanalles.apiview import *
+from chat.views import *
 
-api_urlpatterns=[
-    path('api/user/',UserView.as_view()),
-    path('api/user_detail_inf/',User_detail_View.as_view()),
-    path('api/currentuser/',CurrentUserView.as_view())
-]
 
 
 urlpatterns = [
@@ -34,4 +29,3 @@ urlpatterns = [
     path('',include('chat.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns+=api_urlpatterns

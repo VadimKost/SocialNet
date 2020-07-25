@@ -1,53 +1,61 @@
-from django.contrib import auth
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-from django.utils.safestring import mark_safe
-import json
-from datetime import datetime
-# Create your views here.
-from chat.models import *
 
-@login_required
-def index(request):
-    print(request.user)
-    chats=Chat.objects.filter(members__in=[request.user.id])
-    return render(request,'index.html',locals())
+# def room(request, room_id):
+#     x1=datetime.now()
+#     room_name_json=mark_safe(json.dumps(room_id))
+#     try:
+#         messages=Message.objects.filter(chat=room_id)
+#
+#     except:
+#         error="Wrire"
+#         messages.delete()
+#     x2=datetime.now()
+#     print(x2-x1)
+#     return render(request, 'room.html',locals())
+#
+from django.contrib.auth.models import User
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from chat.models import User_M
+from uChanalles.serializers import User_detail_Serializer, UserSerializer
 
 
-def room(request, room_id):
-    x1=datetime.now()
-    room_name_json=mark_safe(json.dumps(room_id))
-    try:
-        messages=Message.objects.filter(chat=room_id)
+class UserView(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            to_return = User.objects.create_user(
+                email=serializer.initial_data['email'],
+                username=serializer.initial_data['username'],
+                password=serializer.initial_data['password']
+            )
+            return Response(UserSerializer(to_return).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    except:
-        error="Wrire"
-        messages.delete()
-    x2=datetime.now()
-    print(x2-x1)
-    return render(request, 'room.html',locals())
+    def get(self, request):
+        qs = User.objects.all()
+        serializer = UserSerializer(qs, many=True)
+        return Response(serializer.data)
 
-def login(request):
-    error=''
-    if request.method=='POST':
-        name= request.POST.get('login-name','')
-        password= request.POST.get('login-password','')
-        user = auth.authenticate(username=name, password=password)
-        if user is not None:
-            auth.login(request, user)
-            return redirect('/')
-        else:
-            print('asd')
-            return render(request,'login.html',{'error':'Проверте логин и пароль'})
-    return render(request,'login.html',locals())
 
-def registration(request):
-    form = UserCreationForm()
-    if request.POST:
-        new_form = UserCreationForm(request.POST)
-        if new_form.is_valid():
-            new_form.save()
-            aut = auth.authenticate(username=new_form.cleaned_data['username'],
-                                    password=new_form.cleaned_data['password2'])
-            auth.login(request, aut)
+class User_detail_View(APIView):
+    def post(self, request):
+        serializer = User_detail_Serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+    def get(self, request):
+        qs = User_M.objects.all()
+        serializer = User_detail_Serializer(qs, many=True)
+        return Response(serializer.data)
+
+
+class CurrentUserView(APIView):
+    def get(self, request):
+        serializer_context = {
+            'request': request,
+        }
+        qs = User_M.objects.get(user=request.user)
+        serializer = User_detail_Serializer(qs, context=serializer_context)
+        return Response(serializer.data)

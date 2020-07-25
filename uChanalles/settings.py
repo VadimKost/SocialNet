@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chat',
     'channels',
-    'rest_framework'
+    'rest_framework',
+    'storages'
 
 ]
 
@@ -141,10 +142,11 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN='JHU6DqLPRvAAAAAAAAAAHiIxcQSlyQhj9a8Mgcj5XEdsaB_vsXScgSdMzvilYMQ9'
 
 django_heroku.settings(locals())
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
-MEDIA_ROOT = os.path.join(BASE_DIR, "static", "../static/media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "static", "/media")
 MEDIA_URL = '/media/'

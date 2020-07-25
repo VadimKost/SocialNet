@@ -20,7 +20,7 @@ class User_M(models.Model):
         return self.user.chats.all()
 class User_photo(models.Model):
     user = models.OneToOneField(User_M, on_delete=models.CASCADE,related_name='img')
-    photo = models.ImageField(upload_to='static/media/')
+    photo = models.ImageField(upload_to='media/')
     data = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
