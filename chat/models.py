@@ -13,13 +13,8 @@ class User_M(models.Model):
     def __str__(self):
         return self.user.username
 
-    def img_url(self):
-        return self.img.photo.url
-    def get_user_chats(self):
-        print(self.user.chats.all())
-        return self.user.chats.all()
 class User_photo(models.Model):
-    user = models.OneToOneField(User_M, on_delete=models.CASCADE,related_name='img')
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='img')
     photo = models.ImageField(upload_to='media/')
     data = models.DateTimeField(auto_now_add=True)
 

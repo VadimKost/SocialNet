@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'chat',
     'channels',
     'rest_framework',
+    'cloudinary'
 
 
 ]
@@ -142,7 +143,15 @@ CHANNEL_LAYERS = {
         },
     },
 }
-
+CLOUD_NAME=os.environ.get('CLOUD_NAME','')
+API_KEY=os.environ.get('API_KEY','')
+API_SECRET=os.environ.get('API_SECRET','')
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': f'{CLOUD_NAME}',
+    'API_KEY': f'{API_KEY}',
+    'API_SECRET': f'{API_SECRET}',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 django_heroku.settings(locals())
 db_from_env = dj_database_url.config()
