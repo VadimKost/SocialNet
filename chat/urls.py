@@ -19,6 +19,5 @@ from chat.views import *
 
 urlpatterns = [
     path('api/user/', UserView.as_view()),
-    path('api/user_detail_inf/', User_detail_View.as_view()),
     path('api/currentuser/', CurrentUserView.as_view())
 ]

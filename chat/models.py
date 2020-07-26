@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class User_M(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='User_p')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_i')
     adress = models.TextField(max_length=128, blank=True, default='')
     phone = models.CharField(max_length=13, blank=True, default='')
     AboutMe = models.TextField(max_length=256, blank=True, default='')
@@ -12,6 +12,8 @@ class User_M(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
 
 class User_photo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='img')

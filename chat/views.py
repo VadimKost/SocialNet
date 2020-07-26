@@ -18,10 +18,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from chat.models import User_M
-from uChanalles.serializers import User_detail_Serializer, UserSerializer
+from chat.serializers import User_detail_Serializer, UserSerializer
 
 
 class UserView(APIView):
+    """Standart user model api """
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -40,6 +41,7 @@ class UserView(APIView):
 
 
 class User_detail_View(APIView):
+    """Extended user model api"""
     def post(self, request):
         serializer = User_detail_Serializer(data=request.data)
         if serializer.is_valid():
@@ -52,10 +54,11 @@ class User_detail_View(APIView):
 
 
 class CurrentUserView(APIView):
+    """Current user detail inf api"""
     def get(self, request):
         serializer_context = {
             'request': request,
         }
-        qs = User_M.objects.get(user=request.user)
-        serializer = User_detail_Serializer(qs, context=serializer_context)
+        qs = User.objects.get(id=request.user.id)
+        serializer = UserSerializer(qs, context=serializer_context)
         return Response(serializer.data)
