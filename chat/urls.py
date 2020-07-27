@@ -15,9 +15,10 @@ Including another URLconf
 """
 
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+
 from chat.views import *
 
-urlpatterns = [
-    path('api/user/', UserView.as_view()),
-    path('api/currentuser/', CurrentUserView.as_view())
-]
+router=DefaultRouter()
+router.register('user',UserViewSet,basename='userr')
+urlpatterns = router.urls
