@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chat',
     'channels',
+    'userprofile',
     'rest_framework',
     'cloudinary'
 
