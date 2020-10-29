@@ -7,9 +7,7 @@ class UserProfile(models.Model):
     adress = models.TextField(max_length=128, blank=True, default='')
     AboutMe = models.TextField(max_length=256, blank=True, default='')
     data = models.DateField()
-    gender=models.IntegerField(choices=((1,'Man'),
-                                                   (2, 'Woman'),
-                                                   (3,'Other')))
+    gender=models.IntegerField(choices=((1,'Man'),(2, 'Woman'),(3,'Other')))
     photo = models.ImageField(upload_to='media/',default='default/defaultPhoto.png',blank=True)
 
     def __str__(self):
