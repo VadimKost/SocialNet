@@ -26,7 +26,7 @@ from chat.views import *
 urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
-    path('profile/',include('userprofile.urls')),
-    path('chat/',include('chat.urls'))
+    path('api/profile/',include('userprofile.urls')),
+    path('api/chat/',include('chat.urls'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
