@@ -16,8 +16,8 @@ class UserProfile(models.Model):
 
 class ContactAndLinks(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='contact_and_links')
-    title = models.CharField(max_length=32, blank=True, default='')
-    link = models.CharField(max_length=1024, blank=True, default='')
+    title = models.CharField(max_length=32)
+    link = models.CharField(max_length=1024)
 
     def __str__(self):
         return self.title
